@@ -8,8 +8,8 @@ export const metadata: Metadata ={
 
 export default function about(){
     return (
-        <div className="flex min-h-screen dark:bg-black justify-center ">
-            <p className="dark:text-zinc-50">Hello there! This is the about page</p>
+        <div className="flex min-h-screen justify-center ">
+            <p className="">Hello there! This is the about page</p>
         </div>
 
     );

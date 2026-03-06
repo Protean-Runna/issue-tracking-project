@@ -1,7 +1,10 @@
+import Link from "next/link";
+import { Button } from "@radix-ui/themes";
+
 export default function issues(){
     return (
-        <div className="flex min-h-screen dark:bg-black justify-center ">
-            <p className="dark:text-zinc-50">Hello there! This is the issues page</p>
+        <div className="flex min-h-screen ">
+            <Button><Link  href='/issues/new'>New Issue</Link></Button>
         </div>
 
     );
