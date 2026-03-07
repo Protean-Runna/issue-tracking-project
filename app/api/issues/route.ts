@@ -1,38 +1,38 @@
-import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
+import {NextResponse } from "next/server";
+
 import prisma from "@/lib/db";
 
 
-const createIssueSchema = z.object(
-    {
-    title: z.string().min(1).max(255),
-    description: z.string().min(1)
-    }
-); 
-
 
 export async function GET() {
-    return NextResponse.json({message: "Hi from the API!"});
-    
-}
 
-
-export async function POST(req:NextRequest) {
-    //console.log(req);
-    const body = await req.json();
-    
-    
-    const validation = createIssueSchema.safeParse(body);
-
-    if (!validation.success){
-        return NextResponse.json(validation.error.issues, {status:400})
+    try {
+    const issues = await prisma.issue.findMany({
+        select:{
+            id: true,
+            title: true,
+            description: true,
+            status: true,
+            createdAt: true,
+            updatedAt: true
+        },
+        orderBy: {createdAt: 'desc'},
+    });
+    const uiIssues = issues.map((i) => ({
+        id: i.id,
+        title: i.title,
+        description: i.description,
+        status: i.status.toUpperCase(),
+        createdAt: i.createdAt.toLocaleString(),
+        updatedAt: i.updatedAt.toLocaleString(),
+    }))
+    return NextResponse.json(uiIssues, {status:200});
+    } catch (error) {
+        console.error('Error fetching issues:', error);
+        return NextResponse.json({ issues: [] }, { status: 500 });
     }
-        
-
-    const newIssue = await prisma.issue.create({
-        data: {title: body.title, description: body.description},
-
-    })
-
-    return NextResponse.json(newIssue, {status:201});
+ 
 }
+
+
+
