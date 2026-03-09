@@ -16,17 +16,18 @@ interface IssueForm {
 const NewIssuePage = () => {
   const router = useRouter();
   const {register, handleSubmit} = useForm<IssueForm>()
+  const onSubmit = handleSubmit(async (data) => {  
+          await issuesAxios.create(data);
+          router.push('/issues');
+        })
 
   
   return (
   
         <form 
-        className='max-w-xl space-y-3' onSubmit={handleSubmit(async (data) => {
-          await issuesAxios.create(data);
-          router.push('/issues');
-        })} >
+        className='max-w-xl space-y-5 space-x-5' onSubmit={onSubmit} >
             <TextField.Root variant="surface" radius="large" placeholder="Title..." {...register('title')}/>
-            <TextArea maxLength={450} variant="surface" placeholder="Description..." {...register('description')} />
+            <TextArea maxLength={450} size={"3"} resize={"vertical"} variant="surface" placeholder="Description..." {...register('description')} />
             <Button variant="surface">Submit Issue</Button>
 
         </form>
