@@ -23,8 +23,8 @@ export async function GET() {
         title: i.title,
         description: i.description,
         status: i.status.toUpperCase(),
-        createdAt: i.createdAt.toLocaleString(),
-        updatedAt: i.updatedAt.toLocaleString(),
+        createdAt: i.createdAt.toDateString(),
+        updatedAt: i.updatedAt.toDateString(),
     }))
     return NextResponse.json(uiIssues, {status:200});
     } catch (error) {
