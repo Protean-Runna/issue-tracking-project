@@ -2,8 +2,7 @@
 import { notFound } from 'next/navigation';
 import { issuesAxios } from '@/app/services/apiIssues';
 import { Text, Card, Flex, Box } from '@radix-ui/themes';
-import { STATUS_COLOURS } from "@/lib/Constants/Status";
-import { Status } from '@/app/generated/prisma/enums';
+import { StatusBadge } from '@/app/components/statusBadge';
 async function fetchIssue(id:string) {
     const res = await issuesAxios.getSingle(id);
     if (!res){
@@ -22,7 +21,6 @@ const issueDetailsPage = async ({params}: {params: Promise<{id:string}>}) => {
     if (!issue){
        return notFound();
     }
-    const StatusColour = STATUS_COLOURS || 'white';
     return(
         <Box maxWidth={"450px"}>
             <Card>
@@ -31,7 +29,7 @@ const issueDetailsPage = async ({params}: {params: Promise<{id:string}>}) => {
                     <Box minHeight={"50px"}>
                         <Text>{issue?.description}</Text>
                     </Box>
-                    <Text color={StatusColour[issue?.status as Status]}>{issue?.status}</Text>
+                    <StatusBadge dbStatus={issue.status || "grey"} />
                 </Flex>
             </Card>
         </Box>

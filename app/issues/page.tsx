@@ -10,9 +10,8 @@ import {
   Link,
   Container,
 } from "@radix-ui/themes";
+import { StatusBadge } from "../components/statusBadge";
 import { issuesAxios } from "../services/apiIssues";
-import { STATUS_COLOURS } from "@/lib/Constants/Status";
-import { Status } from "../generated/prisma/enums";
 export default function issues() {
   const [issues, setIssues] = useState<Issue[]>([]);
   const [loading, setLoading] = useState(true);
@@ -43,21 +42,12 @@ export default function issues() {
   }, []);
   if (loading) return <p>Loading...</p>;
 
-  const StatusColour =  STATUS_COLOURS || 'white';
-
   return (
     <div className="min-h-screen">
-      <Box minHeight="100px">
+      <Flex minHeight="100px" justify={"center"} mt={"3"}>
         <Heading as="h1" size="9">
           Issues
         </Heading>
-      </Box>
-      <Flex gap="3" minHeight="50px">
-        <Button asChild>
-          <Link href="/issues/new" className="p-1">
-            New Issue
-          </Link>
-        </Button>
       </Flex>
       <Container>
         <Table.Root variant="surface" size={"2"}>
@@ -66,7 +56,13 @@ export default function issues() {
               <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>Created At</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell>
+                <Button asChild>
+                  <Link href="/issues/new" underline="none" size={"2"}>
+                    New Issue
+                  </Link>
+                </Button>
+              </Table.ColumnHeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -77,17 +73,17 @@ export default function issues() {
                   <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
                 </Table.RowHeaderCell>
                 <Table.Cell>
-                  <Text color={StatusColour[issue.status as Status]}>{issue.status} </Text>
+                  <StatusBadge dbStatus={issue.status} />
                 </Table.Cell>
                 <Table.Cell>
                   <Text>{issue.createdAt}</Text>
                 </Table.Cell>
                 <Table.Cell justify={"start"}>
-                  <Button asChild>
-                    <Link href="#">Edit</Link>
+                  <Button asChild variant="outline" mr={"1"}>
+                    <Link href="#" underline="none">Edit</Link>
                   </Button>
-                  <Button color="red" asChild>
-                    <Link href="#">Delete</Link>
+                  <Button asChild > 
+                    <Link color="red" underline="none" href="#" ml={"1"}>Delete</Link>
                   </Button>
                 </Table.Cell>
               </Table.Row>
