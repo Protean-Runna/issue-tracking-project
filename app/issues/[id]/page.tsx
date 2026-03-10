@@ -62,14 +62,5 @@ const issueDetailsPage = async ({params}: {params: Promise<{id:string}>}) => {
     );
 }
 
-/*
-export async function metadataGenerator({params}: IssueDetailsPageProps) {
-    const issue = await fetchIssue(parseInt(params.id));
-    return {
-    title: `Issue: ${issue?.title}`,
-    description: issue?.description,
-  };
-}
-*/
 
 export default issueDetailsPage;
