@@ -9,9 +9,9 @@ import {
   Container,
 } from "@radix-ui/themes";
 import delay from "delay";
-import { StatusBadge } from "../components/statusBadge";
+import { StatusBadge, Link } from "../components";
 import { issuesAxios } from "../services/apiIssues";
-import Link from "@/app/components/Link";
+
 
 export default async function issues() {
 

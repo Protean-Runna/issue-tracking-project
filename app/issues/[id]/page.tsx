@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation';
 import { issuesAxios } from '@/app/services/apiIssues';
 import { Text, Card, Flex, DataList, Container} from '@radix-ui/themes';
-import { StatusBadge } from '@/app/components/statusBadge';
+import { StatusBadge } from '@/app/components';
 import delay from 'delay';
 import ReactMarkdown from 'react-markdown';
 
