@@ -1,26 +1,13 @@
-
-import {
-  Heading,
-  Button,
-  Text,
-  Flex,
-  Box,
-  Table,
-  Container,
-} from "@radix-ui/themes";
+import { Heading, Flex, Container } from "@radix-ui/themes";
 import IssuesTable from "./IssuesTable";
 import delay from "delay";
-import { StatusBadge, Link, EditDelBtnGroup } from "../components";
+
 import { issuesAxios } from "../services/apiIssues";
 
-
 export default async function issues() {
-
-
   const res = await issuesAxios.getAll();
   await delay(2000);
   const issues = res.data;
- 
 
   return (
     <div className="min-h-screen">
@@ -30,46 +17,7 @@ export default async function issues() {
         </Heading>
       </Flex>
       <Container>
-        <Table.Root variant="surface" size={"2"}>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell className="hidden md:table-cell">Status</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell className="hidden md:table-cell">Created At</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>
-                <Button asChild>
-                  <Link href="/issues/new" underline="none" size={"2"}>
-                    New Issue
-                  </Link>
-                </Button>
-              </Table.ColumnHeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {issues.map((issue) => (
-              
-              <Table.Row key={issue.id}>
-                <Table.RowHeaderCell>
-                  <Link href={`/issues/${issue.id}`}>
-                  {issue.title}
-                  </Link>
-                  <div className="block md:hidden">
-                    <StatusBadge dbStatus={issue.status}/>
-                  </div>
-                </Table.RowHeaderCell>
-                <Table.Cell className="hidden md:table-cell">
-                  <StatusBadge dbStatus={issue.status} />
-                </Table.Cell>
-                <Table.Cell className="hidden md:table-cell">
-                  <Text>{issue.createdAt}</Text>
-                </Table.Cell>
-                <Table.Cell justify={"start"}>
-                  <EditDelBtnGroup Id={issue.id}/>
-                </Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table.Root>
+        <IssuesTable issues={issues} />
       </Container>
     </div>
   );

@@ -27,12 +27,12 @@ const IssueData = ({issue}: {issue: Issue}) => {
           {/** Created */}
           <DataList.Item>
             <DataList.Label>Created:</DataList.Label>
-            <DataList.Value>{issue.createdAt.toDateString()}</DataList.Value>
+            <DataList.Value>{new Date(issue.createdAt).toDateString()}</DataList.Value>
           </DataList.Item>
           {/** Updated */}
           <DataList.Item>
             <DataList.Label>Updated:</DataList.Label>
-            <DataList.Value>{issue.updatedAt.toDateString()}</DataList.Value>
+            <DataList.Value>{new Date(issue.updatedAt).toDateString()}</DataList.Value>
           </DataList.Item>
         </DataList.Root>
         <EditDelBtnGroup Id={issue.id} />

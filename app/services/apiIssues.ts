@@ -1,14 +1,6 @@
 import { apiService } from "./apiHelper";
+import { Issue } from "../generated/prisma/client";
 
-
-type Issue = {          // Validated and mapped API side. should be find
-id: number;
-title: string;
-description: string;
-status: string;
-createdAt: string; 
-updatedAt: string; 
-};
 
 
 export const issuesAxios = {

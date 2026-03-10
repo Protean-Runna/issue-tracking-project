@@ -24,8 +24,8 @@ export async function GET(request: NextRequest, {params}: {params: Promise<{id: 
     const uiIssue = {
         ...issue,
         status: issue.status.toUpperCase(),
-        createdAt: issue.createdAt.toDateString(),
-        updatedAt: issue.updatedAt.toDateString(),
+        createdAt: issue.createdAt,
+        updatedAt: issue.updatedAt,
     }
     
     return NextResponse.json(uiIssue, {status:200});
