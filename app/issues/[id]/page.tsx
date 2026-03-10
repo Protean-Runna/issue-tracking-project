@@ -1,66 +1,44 @@
-
-import { notFound } from 'next/navigation';
-import { issuesAxios } from '@/app/services/apiIssues';
-import { Text, Card, Flex, DataList, Container} from '@radix-ui/themes';
-import { StatusBadge } from '@/app/components';
-import delay from 'delay';
-import ReactMarkdown from 'react-markdown';
-
+import { notFound } from "next/navigation";
+// import { issuesAxios } from "@/app/services/apiIssues";
+import {  Flex, Container } from "@radix-ui/themes";
+import delay from "delay";
+import prisma from "@/lib/db";
+import IssueData from "./IssueData";
 interface Props {
-    params: {id:string};
+  params: { id: string };
 }
 
-const issueDetailsPage = async ({params}: Props) => {
+const issueDetailsPage = async ({ params }: Props) => {
+/* Commented out do to some funky interactions with the api
+  const { id } = await params;
+  const res = await issuesAxios.getSingle(id);
 
-    
-    const {id} = await params;
-    const res = await issuesAxios.getSingle(id);
-    
-    if (!res){
-       return notFound();
-    }
-    await delay(1000);
+  if (!res) {
+    return notFound();
+  }
+    */
 
-    const issue = res.data;
+  /// THIS IS TEMPORARY UNTIL THE FIND UNIQUE IS FIXED ON THE API
+  const {id} = await params;  // await has no effect my foot
 
-    return(
-        <Flex justify={"center"} align={"center"}>
-            <Container size={"3"}>
-                <Card size={"3"}>
-                        <DataList.Root mb={"5"} size={"3"}  >
-                            {/** Title*/}
-                            <DataList.Item align={"center"}>
-                            
-                            <DataList.Label>Issue:</DataList.Label>
-                            <DataList.Value>{issue.title}</DataList.Value>
-                            </DataList.Item>
-                            {/** Status */}
-                            <DataList.Item>
-                            <DataList.Label>Status:</DataList.Label>
-                            <DataList.Value><StatusBadge dbStatus={issue.status || "grey"} /></DataList.Value>
-                            </DataList.Item>
-                            {/** Created */}
-                            <DataList.Item>
-                            <DataList.Label>Created:</DataList.Label>
-                            <DataList.Value>{issue.createdAt}</DataList.Value>
-                            </DataList.Item>
-                            {/** Updated */}
-                            <DataList.Item>
-                            <DataList.Label>Updated:</DataList.Label>
-                            <DataList.Value>{issue.updatedAt}</DataList.Value>
-                            </DataList.Item>
+  const issueId = parseInt(id);
+  const issue = await prisma.issue.findUnique({       
+        where : {id: issueId},
+    });
+  if (!issue) {
+    return notFound();
+  }
+  await delay(1000);
 
-                        </DataList.Root>
-                    </Card>
-                    <Card  mt={"4"} >
-                        <Text as="div" className='prose dark:prose-invert'><ReactMarkdown>{issue.description}</ReactMarkdown></Text>
-                    </Card>
-                
-            </Container>
-        </Flex>
-       
-    );
-}
+  //const issue = res.data;
 
+  return (
+    <Flex justify={"center"} align={"center"}>
+      <Container size={"3"}>
+        <IssueData issue={issue}/>
+      </Container>
+    </Flex>
+  );
+};
 
 export default issueDetailsPage;

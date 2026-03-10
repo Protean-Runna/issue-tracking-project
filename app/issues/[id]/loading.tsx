@@ -1,6 +1,6 @@
 import {
   Flex,
-  Box,
+  Button,
   Card,
   DataList,
   Badge,
@@ -14,7 +14,7 @@ export default function LoadingState() {
     <Flex justify={"center"} align={"center"}>
       <Container size={"3"}>
         <Card size={"3"}>
-          <DataList.Root mb={"5"} size={"3"}>
+          <DataList.Root mb={"4"} size={"3"}>
             {/** Title*/}
             <DataList.Item align={"center"}>
               <DataList.Label>Issue:</DataList.Label>
@@ -51,21 +51,19 @@ export default function LoadingState() {
                 </Skeleton>
               </DataList.Value>
             </DataList.Item>
+            
           </DataList.Root>
+            <Button asChild variant="outline" mr={"1"}>
+              <Skeleton>Edit</Skeleton>
+            </Button>
+            <Button asChild ml={"1"}> 
+              <Skeleton>Delete</Skeleton>
+            </Button>
         </Card>
         <Card mt={"4"}>
           <Text>
             <Skeleton >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Pellentesque felis tellus, efficitur id convallis a, viverra eget
-              libero. Nam magna erat, fringilla sed commodo sed, aliquet nec
-              magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Pellentesque felis tellus, efficitur id convallis a, viverra eget
-              libero. Nam magna erat, fringilla sed commodo sed, aliquet nec
-              magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Pellentesque felis tellus, efficitur id convallis a, viverra eget
-              libero. Nam magna erat, fringilla sed commodo sed, aliquet nec
-              magna.
+              Lorem ipsum dolor sit amet, consectetur.
             </Skeleton>
           </Text>
         </Card>
