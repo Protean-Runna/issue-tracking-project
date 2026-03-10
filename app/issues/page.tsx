@@ -6,12 +6,12 @@ import {
   Flex,
   Box,
   Table,
-  Link,
   Container,
 } from "@radix-ui/themes";
 import delay from "delay";
 import { StatusBadge } from "../components/statusBadge";
 import { issuesAxios } from "../services/apiIssues";
+import Link from "@/app/components/Link";
 
 export default async function issues() {
 
