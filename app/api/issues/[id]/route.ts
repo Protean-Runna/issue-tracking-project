@@ -2,28 +2,37 @@
 import {NextRequest,NextResponse } from "next/server";
 
 import prisma from "@/lib/db";
-import { Issue } from "@/app/generated/prisma/client";
 
 
-export async function GET(request: Request, {params}: {params: Promise<{id: number}>}) {
-    const id = parseInt((await params).id.toString());
 
-    if (!id){
-        return NextResponse.json({
-            error: "No ID Provided"
-        }, {status:400})
-    }
+export async function GET(request: NextRequest, {params}: {params: Promise<{id: string}>}) {
+
     try {
-    const issue: Issue | null = await prisma.issue.findUnique({
-        where : {id: id},
-        
-
+        const {id} = await params;
+        const issueId = parseInt(id);
+        if (isNaN(issueId)){
+            return NextResponse.json({message:"Invalid ID"},{status: 400})
+        };
+    const issue = await prisma.issue.findUnique({       
+        where : {id: issueId},
     });
+
+
+    if (!issue){
+        return NextResponse.json({message: "Issue could not be found"}, {status:404})
+    };
     
-    return NextResponse.json(issue, {status:200});
+    const uiIssue = {
+        ...issue,
+        status: issue.status.toUpperCase(),
+        createdAt: issue.createdAt.toDateString(),
+        updatedAt: issue.updatedAt.toDateString(),
+    }
+    
+    return NextResponse.json(uiIssue, {status:200});
     } catch (error) {
         console.error('Error fetching issue:', error);
-        return NextResponse.json({ message: "Issue could not be found" }, { status: 404 });
+        return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
     }
  
 }
