@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { issuesAxios } from "@/app/services/apiIssues";
+import { ISSUES_AXIOS } from "@/app/services/apiResourceFactory";
 import { Flex, Container } from "@radix-ui/themes";
 import delay from "delay";
 import IssueData from "./IssueData";
@@ -11,7 +11,7 @@ const issueDetailsPage = async ({ params }: Props) => {
   // Commented out do to some funky interactions with the api
   //
   const { id } = await params;
-  const res = await issuesAxios.getSingle(id);
+  const res = await ISSUES_AXIOS.getSingle(id);
 
   if (!res) {
     return notFound();

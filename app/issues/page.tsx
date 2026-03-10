@@ -1,11 +1,10 @@
 import { Heading, Flex, Container } from "@radix-ui/themes";
 import IssuesTable from "./IssuesTable";
 import delay from "delay";
-
-import { issuesAxios } from "../services/apiIssues";
+import { ISSUES_AXIOS } from "../services/apiResourceFactory";
 
 export default async function issues() {
-  const res = await issuesAxios.getAll();
+  const res = await ISSUES_AXIOS.getAll();
   await delay(2000);
   const issues = res.data;
 
