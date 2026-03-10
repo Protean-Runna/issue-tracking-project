@@ -54,8 +54,8 @@ export default function issues() {
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Created At</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell className="hidden md:table-cell">Status</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell className="hidden md:table-cell">Created At</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>
                 <Button asChild>
                   <Link href="/issues/new" underline="none" size={"2"}>
@@ -70,12 +70,17 @@ export default function issues() {
               
               <Table.Row key={issue.id}>
                 <Table.RowHeaderCell>
-                  <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+                  <Link href={`/issues/${issue.id}`}>
+                  {issue.title}
+                  </Link>
+                  <div className="block md:hidden">
+                    <StatusBadge dbStatus={issue.status}/>
+                  </div>
                 </Table.RowHeaderCell>
-                <Table.Cell>
+                <Table.Cell className="hidden md:table-cell">
                   <StatusBadge dbStatus={issue.status} />
                 </Table.Cell>
-                <Table.Cell>
+                <Table.Cell className="hidden md:table-cell">
                   <Text>{issue.createdAt}</Text>
                 </Table.Cell>
                 <Table.Cell justify={"start"}>
