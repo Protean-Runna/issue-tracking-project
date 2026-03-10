@@ -8,7 +8,7 @@ import {useForm, Controller} from 'react-hook-form';
 import {issuesAxios} from "@/app/services/apiIssues";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createIssueSchema } from "@/lib/ValidationSchemas";
+import { IssueSchema } from "@/lib/ValidationSchemas";
 import {z} from 'zod';
 import ErrorMessage from "@/app/components/ErrorMessage";
 
@@ -17,12 +17,12 @@ const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
   loading: () => <p>Loading editor...</p>,
 });
 
-type IssueForm = z.infer<typeof createIssueSchema>;
+type IssueForm = z.infer<typeof IssueSchema>;
 
 const NewIssuePage = () => {
   const router = useRouter();
   const {register, control, handleSubmit, formState: {errors}} = useForm<IssueForm>({
-    resolver: zodResolver(createIssueSchema)
+    resolver: zodResolver(IssueSchema)
   })
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
