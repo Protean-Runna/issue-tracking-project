@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "@/lib/ValidationSchemas";
 import {z} from 'zod';
+import ErrorMessage from "@/app/components/ErrorMessage";
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
   ssr: false,
@@ -46,10 +47,10 @@ const NewIssuePage = () => {
   
           <form 
           className=' space-y-3 space-x-5 mt-2' onSubmit={onSubmit} >
-              {errors.title && <Text color="red">{errors.title.message}</Text>}
+              <ErrorMessage>{errors.title?.message}</ErrorMessage>
               <TextField.Root variant="surface" radius="large" placeholder="Title..." {...register('title')}/>
               
-              {errors.description && <Text color="red">{errors.description.message}</Text>}
+              <ErrorMessage>{errors.description?.message}</ErrorMessage>
               <Controller name="description" control={control} render={({field}) => <SimpleMDE  placeholder="Description..." {...field} />} />
               <Button variant="surface" size={"3"}>Submit Issue</Button>
           </form>
