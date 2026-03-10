@@ -1,27 +1,8 @@
+import { Flex, Skeleton, Heading, Container, Table, Button, Text, Link, Badge } from "@radix-ui/themes";
 
-import {
-  Heading,
-  Button,
-  Text,
-  Flex,
-  Box,
-  Table,
-  Link,
-  Container,
-} from "@radix-ui/themes";
-import delay from "delay";
-import { StatusBadge } from "../components/statusBadge";
-import { issuesAxios } from "../services/apiIssues";
-
-export default async function issues() {
-
-
-  const res = await issuesAxios.getAll();
-  await delay(2000);
-  const issues = res.data;
- 
-
-  return (
+export default function LoadingState() {
+    const issues = [1,2,3,4,5,6,7,8];
+    return (
     <div className="min-h-screen">
       <Flex minHeight="100px" justify={"center"} mt={"3"}>
         <Heading as="h1" size="9">
@@ -36,38 +17,35 @@ export default async function issues() {
               <Table.ColumnHeaderCell className="hidden md:table-cell">Status</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell className="hidden md:table-cell">Created At</Table.ColumnHeaderCell>
               <Table.ColumnHeaderCell>
-                <Button asChild>
-                  <Link href="/issues/new" underline="none" size={"2"}>
-                    New Issue
-                  </Link>
-                </Button>
+                <Skeleton loading={true}>
+                    <Button disabled={true} asChild>
+                        <Link underline="none" size={"2"}>
+                           New Issue
+                        </Link>
+                    </Button>
+                </Skeleton>
               </Table.ColumnHeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {issues.map((issue) => (
               
-              <Table.Row key={issue.id}>
+              <Table.Row key={issue}>
                 <Table.RowHeaderCell>
-                  <Link href={`/issues/${issue.id}`}>
-                  {issue.title}
-                  </Link>
-                  <div className="block md:hidden">
-                    <StatusBadge dbStatus={issue.status}/>
-                  </div>
+                  <Text><Skeleton>testing with types</Skeleton></Text>
                 </Table.RowHeaderCell>
                 <Table.Cell className="hidden md:table-cell">
-                  <StatusBadge dbStatus={issue.status} />
+                  <Skeleton><Badge size={"2"}>Status</Badge></Skeleton>
                 </Table.Cell>
                 <Table.Cell className="hidden md:table-cell">
-                  <Text>{issue.createdAt}</Text>
+                  <Skeleton><Text>Tue Mar 10 2026</Text></Skeleton>
                 </Table.Cell>
                 <Table.Cell justify={"start"}>
                   <Button asChild variant="outline" mr={"1"}>
-                    <Link href="#" underline="none">Edit</Link>
+                    <Skeleton>Edit</Skeleton>
                   </Button>
                   <Button asChild > 
-                    <Link color="red" underline="none" href="#" ml={"1"}>Delete</Link>
+                    <Skeleton>Delete</Skeleton>
                   </Button>
                 </Table.Cell>
               </Table.Row>
@@ -77,4 +55,5 @@ export default async function issues() {
       </Container>
     </div>
   );
+    
 }

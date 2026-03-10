@@ -14,6 +14,7 @@
     "@prisma/client": "^7.4.2",
     "@radix-ui/themes": "^3.3.0",
     "axios": "^1.13.6",
+    "delay": "^7.0.0",
     "easymde": "^2.20.0",
     "next": "16.1.6",
     "react": "19.2.3",
