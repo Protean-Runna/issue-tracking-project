@@ -36,7 +36,7 @@ export async function GET(request: NextRequest, {params}: {params: Promise<{id: 
  
 };
 
-export async function PATCH(request: NextRequest, {params}: {params: Promise<{id: string}>}){
+export async function PATCH(request: NextRequest, {params}: {params: {id: string}}){
     const body = await request.json();
     const validation = IssueSchema.safeParse(body);
     
@@ -46,6 +46,7 @@ export async function PATCH(request: NextRequest, {params}: {params: Promise<{id
     try {
         const {id} = await params;
         const issueId = parseInt(id);
+
         const issue = prisma.issue.findUnique({
             where: {id: issueId}
         })
@@ -57,7 +58,8 @@ export async function PATCH(request: NextRequest, {params}: {params: Promise<{id
             where: { id: issueId},
             data: {
                 title: body.title,
-                description: body.description
+                description: body.description,
+                updatedAt: new Date()
             }
             });
             return NextResponse.json(updatedIssue);

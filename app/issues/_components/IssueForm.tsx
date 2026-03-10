@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import "easymde/dist/easymde.min.css";
 import { TextField, Callout, Button, Spinner } from "@radix-ui/themes";
 import {useForm, Controller} from 'react-hook-form';
-import {issuesAxios} from "@/app/services/apiIssues";
+import { ISSUES_AXIOS } from "@/app/services/apiResourceFactory";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IssueSchema } from "@/lib/ValidationSchemas";
@@ -25,12 +25,18 @@ const IssueForm = ({issue} : {issue?: Issue}) => {
   const {register, control, handleSubmit, formState: {errors}} = useForm<IssueFormData>({
     resolver: zodResolver(IssueSchema)
   })
+
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const onSubmit = handleSubmit(async (data) => {  
           try {
             setIsSubmitting(true);
-            await issuesAxios.create(data);
+            if (issue) {
+              await ISSUES_AXIOS.update(issue.id.toString(), data)
+            }else {
+              await ISSUES_AXIOS.create(data);
+            }
+            
             router.push('/issues');            
           } catch (error) {
             setIsSubmitting(false);
@@ -56,7 +62,7 @@ const IssueForm = ({issue} : {issue?: Issue}) => {
               
               <ErrorMessage>{errors.description?.message}</ErrorMessage>
               <Controller name="description" defaultValue={issue?.description} control={control} render={({field}) => <SimpleMDE  placeholder="Description..." {...field} />} />
-              <Button disabled={isSubmitting} variant="surface" size={"3"}>Submit Issue { isSubmitting && <Spinner/> || null}</Button>
+              <Button disabled={isSubmitting} variant="surface" size={"3"}>{issue ? 'Update Issue' : 'Submit Issue'}{''}{ isSubmitting && <Spinner/> || null}</Button>
           </form>
         </div>
         
