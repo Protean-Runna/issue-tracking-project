@@ -8,8 +8,9 @@ import {
   Table,
   Container,
 } from "@radix-ui/themes";
+import IssuesTable from "./IssuesTable";
 import delay from "delay";
-import { StatusBadge, Link } from "../components";
+import { StatusBadge, Link, EditDelBtnGroup } from "../components";
 import { issuesAxios } from "../services/apiIssues";
 
 
@@ -63,12 +64,7 @@ export default async function issues() {
                   <Text>{issue.createdAt}</Text>
                 </Table.Cell>
                 <Table.Cell justify={"start"}>
-                  <Button asChild variant="outline" mr={"1"}>
-                    <Link href="#" underline="none">Edit</Link>
-                  </Button>
-                  <Button asChild > 
-                    <Link color="red" underline="none" href="#" ml={"1"}>Delete</Link>
-                  </Button>
+                  <EditDelBtnGroup Id={issue.id}/>
                 </Table.Cell>
               </Table.Row>
             ))}
