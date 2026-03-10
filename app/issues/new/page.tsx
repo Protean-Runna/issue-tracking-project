@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import "easymde/dist/easymde.min.css";
-import { TextField, Callout, Button, Text } from "@radix-ui/themes";
+import { TextField, Callout, Button, Spinner } from "@radix-ui/themes";
 import {useForm, Controller} from 'react-hook-form';
 import {issuesAxios} from "@/app/services/apiIssues";
 import { useRouter } from "next/navigation";
@@ -25,11 +25,14 @@ const NewIssuePage = () => {
     resolver: zodResolver(createIssueSchema)
   })
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const onSubmit = handleSubmit(async (data) => {  
           try {
+            setIsSubmitting(true);
             await issuesAxios.create(data);
             router.push('/issues');            
           } catch (error) {
+            setIsSubmitting(false);
             console.log(error);
             setError('An unexpected error has occurred. Please try again.');
           }          
@@ -52,7 +55,7 @@ const NewIssuePage = () => {
               
               <ErrorMessage>{errors.description?.message}</ErrorMessage>
               <Controller name="description" control={control} render={({field}) => <SimpleMDE  placeholder="Description..." {...field} />} />
-              <Button variant="surface" size={"3"}>Submit Issue</Button>
+              <Button disabled={isSubmitting} variant="surface" size={"3"}>Submit Issue { isSubmitting && <Spinner/> || null}</Button>
           </form>
         </div>
         
