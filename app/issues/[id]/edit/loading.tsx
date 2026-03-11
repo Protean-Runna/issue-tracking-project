@@ -1,9 +1,3 @@
-import { Loader } from "@/app/components/Loader"
+import IssueFormSkeleton from "@/app/issues/_components/IssueFormSkeleton";
 
-
-export default function LoadingState() {
-    return (
-        <Loader/>
-    )
-    
-}
+export default IssueFormSkeleton;

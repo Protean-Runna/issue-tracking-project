@@ -12,11 +12,8 @@ import { IssueSchema } from "@/lib/ValidationSchemas";
 import {z} from 'zod';
 import ErrorMessage from "@/app/components/ErrorMessage";
 import { Issue } from "@/app/generated/prisma/client";
+import SimpleMDE from "react-simplemde-editor";
 
-const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
-  ssr: false,
-  loading: () => <p>Loading editor...</p>,
-});
 
 type IssueFormData = z.infer<typeof IssueSchema>;
 
@@ -37,7 +34,8 @@ const IssueForm = ({issue} : {issue?: Issue}) => {
               await ISSUES_AXIOS.create(data);
             }
             
-            router.push('/issues');            
+            router.push('/issues'); 
+            router.refresh();       
           } catch (error) {
             setIsSubmitting(false);
             console.log(error);

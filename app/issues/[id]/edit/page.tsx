@@ -1,26 +1,24 @@
 import { notFound } from "next/navigation";
-import IssueForm from "../../_components/IssueForm";
-import prisma from "@/lib/db";
+import IssueFormPageView from "@/app/issues/_components/ClientOnlyIssueForm";
+import { ISSUES_AXIOS } from "@/app/services/apiResourceFactory";
 import delay from "delay";
 interface Props {
     params: {id:string}
 }
 
 const EditPage =  async ({params}: Props) => {
-    const {id} = await params;  // await has no effect my foot
+    const { id } = await params;
+    const res = await ISSUES_AXIOS.getSingle(id);
+  
+    if (!res) {
+      return notFound();
+    }
+    await delay(1000);
 
-  const issueId = parseInt(id);
-  const issue = await prisma.issue.findUnique({       
-        where : {id: issueId},
-    });
-    if (!issue) {
-        return notFound();
-      }
-      await delay(1000);
+    const issue = res.data;
     return (
         <div>
-            <p className="">Hello there! This is the Edit page</p>
-            <IssueForm issue={issue}/>
+            <IssueFormPageView issue={issue}/>
         </div>
 
     );
