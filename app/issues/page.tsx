@@ -20,5 +20,5 @@ export default async function issues() {
   );
 };
 
-
+export const dynamic = 'force-dynamic';
 
