@@ -15,9 +15,10 @@ export default async function issues() {
           Issues
         </Heading>
       </Flex>
-      <Container>
         <IssuesTable issues={issues} />
-      </Container>
     </div>
   );
-}
+};
+
+
+
