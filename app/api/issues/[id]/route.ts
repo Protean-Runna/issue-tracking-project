@@ -105,7 +105,6 @@ export async function DELETE(
 
     return NextResponse.json(
       { message: `Issue ${issueId} has been deleted` },
-      { status: 204 },
     );
   } catch (error) {
     if (
