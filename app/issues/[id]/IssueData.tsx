@@ -1,8 +1,8 @@
-import { StatusBadge, EditDelBtnGroup } from "@/app/components";
+import { StatusBadge, BtnGroup, Date } from "@/app/components";
 import { Issue } from "@/app/generated/prisma/client";
 import { Card, DataList, Text } from "@radix-ui/themes";
 import ReactMarkdown from "react-markdown";
-import Date from "@/app/components/DateFormat"
+import { Edit, Delete } from "../_components/Buttons";
 interface Props {
   params: { id: string };
 }
@@ -35,7 +35,7 @@ const IssueData = ({issue}: {issue: Issue}) => {
             <DataList.Value><Date date={issue.updatedAt}/></DataList.Value>
           </DataList.Item>
         </DataList.Root>
-        <EditDelBtnGroup Id={issue.id} />
+        <BtnGroup btnL={<Edit Id={issue.id}/>} btnR={<Delete Id={issue.id}/>} />
       </Card>
       <Card mt={"4"} className="min-w-0">
         <Text as="div" className="prose dark:prose-invert wrap-break-word whitespace-normal max-w-full">

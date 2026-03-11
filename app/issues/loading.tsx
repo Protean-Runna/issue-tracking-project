@@ -44,9 +44,6 @@ export default function LoadingState() {
                   <Button asChild variant="outline" mr={"1"}>
                     <Skeleton>Edit</Skeleton>
                   </Button>
-                  <Button asChild > 
-                    <Skeleton>Delete</Skeleton>
-                  </Button>
                 </Table.Cell>
               </Table.Row>
             ))}

@@ -1,7 +1,7 @@
-import { Table, Button, Text } from "@radix-ui/themes";
-import { StatusBadge, EditDelBtnGroup, Link } from "../components";
+import { Table, Button, } from "@radix-ui/themes";
+import { StatusBadge, Link, Date } from "../components";
 import { Issue } from "../generated/prisma/client";
-import Date from "@/app/components/DateFormat";
+import { Edit } from "./_components/Buttons";
 const IssuesTable = ({ issues }: { issues: Issue[] }) => {
   return (
     <div>
@@ -40,7 +40,7 @@ const IssuesTable = ({ issues }: { issues: Issue[] }) => {
                 <Date date={issue.createdAt}/>
               </Table.Cell>
               <Table.Cell justify={"start"}>
-                <EditDelBtnGroup Id={issue.id} />
+                <Edit Id={issue.id}/>
               </Table.Cell>
             </Table.Row>
           ))}
