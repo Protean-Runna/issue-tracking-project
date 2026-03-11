@@ -15,7 +15,7 @@ const IssueData = ({issue}: {issue: Issue}) => {
           {/** Title*/}
           <DataList.Item align={"center"}>
             <DataList.Label>Issue:</DataList.Label>
-            <DataList.Value>{issue.title}</DataList.Value>
+            <DataList.Value className="min-w-0 wrap-break-word whitespace-normal max-w-full" >{issue.title}</DataList.Value>
           </DataList.Item>
           {/** Status */}
           <DataList.Item>
@@ -37,8 +37,8 @@ const IssueData = ({issue}: {issue: Issue}) => {
         </DataList.Root>
         <EditDelBtnGroup Id={issue.id} />
       </Card>
-      <Card mt={"4"}>
-        <Text as="div" className="prose dark:prose-invert">
+      <Card mt={"4"} className="min-w-0">
+        <Text as="div" className="prose dark:prose-invert wrap-break-word whitespace-normal max-w-full">
           <ReactMarkdown>{issue.description}</ReactMarkdown>
         </Text>
       </Card>

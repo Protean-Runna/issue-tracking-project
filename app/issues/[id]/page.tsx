@@ -21,8 +21,8 @@ const issueDetailsPage = async ({ params }: Props) => {
   const issue = res.data;
 
   return (
-    <Flex justify={"center"} align={"center"}>
-      <Container size={"3"}>
+    <Flex justify={"center"} align={"center"} className="w-full">
+      <Container size={"3"} className="min-w-0 w-full">
         <IssueData issue={issue} />
       </Container>
     </Flex>
