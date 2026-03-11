@@ -1,7 +1,7 @@
 import { Table, Button, Text } from "@radix-ui/themes";
 import { StatusBadge, EditDelBtnGroup, Link } from "../components";
 import { Issue } from "../generated/prisma/client";
-
+import Date from "@/app/components/DateFormat";
 const IssuesTable = ({ issues }: { issues: Issue[] }) => {
   return (
     <div>
@@ -37,7 +37,7 @@ const IssuesTable = ({ issues }: { issues: Issue[] }) => {
                 <StatusBadge dbStatus={issue.status} />
               </Table.Cell>
               <Table.Cell className="hidden md:table-cell">
-                <Text>{new Date(issue.createdAt).toDateString()}</Text>
+                <Date date={issue.createdAt}/>
               </Table.Cell>
               <Table.Cell justify={"start"}>
                 <EditDelBtnGroup Id={issue.id} />

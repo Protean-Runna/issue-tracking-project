@@ -2,7 +2,7 @@ import { StatusBadge, EditDelBtnGroup } from "@/app/components";
 import { Issue } from "@/app/generated/prisma/client";
 import { Card, DataList, Text } from "@radix-ui/themes";
 import ReactMarkdown from "react-markdown";
-
+import Date from "@/app/components/DateFormat"
 interface Props {
   params: { id: string };
 }
@@ -27,12 +27,12 @@ const IssueData = ({issue}: {issue: Issue}) => {
           {/** Created */}
           <DataList.Item>
             <DataList.Label>Created:</DataList.Label>
-            <DataList.Value>{new Date(issue.createdAt).toDateString()}</DataList.Value>
+            <DataList.Value><Date date={issue.createdAt}/></DataList.Value>
           </DataList.Item>
           {/** Updated */}
           <DataList.Item>
             <DataList.Label>Updated:</DataList.Label>
-            <DataList.Value>{new Date(issue.updatedAt).toDateString()}</DataList.Value>
+            <DataList.Value><Date date={issue.updatedAt}/></DataList.Value>
           </DataList.Item>
         </DataList.Root>
         <EditDelBtnGroup Id={issue.id} />
