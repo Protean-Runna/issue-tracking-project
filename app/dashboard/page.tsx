@@ -1,6 +1,6 @@
 import { Box, Card, Heading, Flex, Grid, Text } from "@radix-ui/themes";
 import prisma from "@/lib/db";
-
+import StatCard from "./_components/StatCard";
 export default async function dashboard() {
   const issueCounts = {
     open: await prisma.issue.count({ where: { status: "OPEN" } }),
@@ -11,20 +11,11 @@ export default async function dashboard() {
   return (
     <div className="min-h-screen flex flex-col">
       <Heading as="h1" size="9">Dashboard</Heading>
-      <Heading as="h2" size={"7"}> Current Issues</Heading>
+      <Heading as="h2" m={"2"} mb={"4"} mt={"4"} size={"7"}> Current Issues</Heading>
       <Grid gap={"3"} columns={"3"}>
-        <Card>
-          <Heading as="h3" size={"5"}>Open</Heading>
-          <Text size={"2"}>{issueCounts.open}</Text>
-        </Card>
-        <Card>
-          <Heading as="h3" size={"5"}>In Progress</Heading>
-          <Text size={"2"}>{issueCounts.inProgress}</Text>
-        </Card>
-        <Card>
-          <Heading as="h3" size={"5"}>Closed</Heading>
-          <Text size={"2"}>{issueCounts.closed}</Text>
-        </Card>
+        <StatCard Title={"Open"}>{issueCounts.open}</StatCard>
+        <StatCard Title={"In Progress"}>{issueCounts.inProgress}</StatCard>
+        <StatCard Title={"Closed"}>{issueCounts.closed}</StatCard>
       </Grid>
     </div>
   );
