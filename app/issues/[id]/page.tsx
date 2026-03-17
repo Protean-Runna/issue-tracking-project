@@ -33,4 +33,18 @@ const issueDetailsPage = async ({ params }: Props) => {
     
 };
 
+export async function generateMetadata({params} : Props) {
+  const { id } = await params;
+  
+  const issueId = parseInt(id);
+  const issue = await prisma.issue.findUnique({
+    where: { id: issueId },
+  });
+  return {
+    title: `Issue: ${issue?.title}`,
+    description: `Details of Issue: ${issue?.id}`
+  }
+};
+
+
 export default issueDetailsPage;

@@ -4,6 +4,7 @@ import delay from "delay";
 import StatusFilter from "./_components/StatusFilter";
 import { Status } from "../generated/prisma/enums";
 import prisma from "@/lib/db";
+import { Metadata } from "next";
 interface Props {
   searchParams: Promise<{status: Status}>
 }
@@ -42,6 +43,11 @@ interface Props {
       <IssuesTable issues={issues} />
     </div>
   );
+};
+
+export const metadata: Metadata = {
+  title: "Issues List | Issue Tracky",
+  description: "See all issues here",
 };
 
 export default issues
