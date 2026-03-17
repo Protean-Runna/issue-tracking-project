@@ -61,7 +61,7 @@ export default function LoadingState() {
             </Button>
         </Card>
         <Card mt={"4"}>
-          <Text>
+          <Text as="div" mt={"2"} mb={"2"}>
             <Skeleton >
               Lorem ipsum dolor sit amet, consectetur.
             </Skeleton>
