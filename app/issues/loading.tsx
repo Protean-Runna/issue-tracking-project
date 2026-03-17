@@ -4,12 +4,13 @@ export default function LoadingState() {
     const issues = [1,2,3,4,5,6,7,8];
     return (
     <div className="min-h-screen">
-      <Flex minHeight="100px" justify={"center"} mt={"3"}>
+      <Flex minHeight="100px" mt={"3"}>
         <Heading as="h1" size="9">
           Issues
         </Heading>
       </Flex>
       <Container>
+        <Skeleton mb={"1"}><Button>sorting here stuff</Button></Skeleton>
         <Table.Root variant="surface" size={"2"}>
           <Table.Header>
             <Table.Row>
