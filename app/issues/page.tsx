@@ -5,8 +5,9 @@ import StatusFilter from "./_components/StatusFilter";
 import { Status } from "../generated/prisma/enums";
 import prisma from "@/lib/db";
 import { Metadata } from "next";
+import { Pagination } from "../components/Pagination";
 interface Props {
-  searchParams: Promise<{status: Status}>
+  searchParams: Promise<{status: Status, page: string}>
 }
 
  const issues = async ({searchParams}: Props) => {
@@ -14,8 +15,10 @@ interface Props {
 
   const statuses = Object.values(Status);
   const status = statuses.includes(params.status) ? params.status : undefined;
+  const where = {status};
   console.log(status);
-  
+  const page = parseInt((await searchParams).page) || 1;
+  const pageSize = 10
   const issues = await prisma.issue.findMany({
         select:{
             id: true,
@@ -25,15 +28,20 @@ interface Props {
             createdAt: true,
             updatedAt: true
         },
-        where: {status},
+        where,
         orderBy: {createdAt: 'desc'},
+        skip: (page - 1) * pageSize,
+        take: pageSize
     });
   
   await delay(1000);
 
+  const issueCount = await prisma.issue.count({where});
+
+
   return (
-    <div className="min-h-screen">
-      <Flex minHeight="100px" mt={"3"}>
+    <Flex className="min-h-screen" direction={'column'} gap={'2'}>
+      <Flex minHeight="100px">
         <Heading as="h1" size="9">
           Issues
         </Heading>
@@ -41,7 +49,8 @@ interface Props {
       <StatusFilter/>
         
       <IssuesTable issues={issues} />
-    </div>
+      <Pagination currentPage={page} pageSize={pageSize} itemCount={issueCount}/>
+    </Flex>
   );
 };
 

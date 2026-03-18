@@ -1,10 +1,10 @@
 import { Flex, Skeleton, Heading, Container, Table, Button, Text, Link, Badge } from "@radix-ui/themes";
 
 export default function LoadingState() {
-    const issues = [1,2,3,4,5,6,7,8];
+    const issues = [1,2,3,4,5,6,7,8, 9, 10];
     return (
-    <div className="min-h-screen">
-      <Flex minHeight="100px" mt={"3"}>
+    <Flex className="min-h-screen" direction={"column"} gap={'2'}>
+      <Flex minHeight="100px">
         <Heading as="h1" size="9">
           Issues
         </Heading>
@@ -51,7 +51,7 @@ export default function LoadingState() {
           </Table.Body>
         </Table.Root>
       </Container>
-    </div>
+    </Flex>
   );
     
 }
