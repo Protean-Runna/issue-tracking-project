@@ -1,7 +1,6 @@
 import { Heading, Flex, Grid, } from "@radix-ui/themes";
 import prisma from "@/lib/db";
-import LatestIssues from "./_components/LatestIssues";
-import SummaryIssues from "./_components/SummaryIssues";
+import { SummaryIssues, IssueChart, LatestIssues } from "./_components";
 import { Metadata } from "next";
 export default async function dashboard() {
   const issueCounts = {
@@ -19,9 +18,15 @@ export default async function dashboard() {
             open={issueCounts.open} 
             inProgress={issueCounts.inProgress} 
             closed={issueCounts.closed}/>
+            <IssueChart 
+            open={issueCounts.open} 
+            inProgress={issueCounts.inProgress} 
+            closed={issueCounts.closed}
+            />
         </Flex>
         <LatestIssues/>
       </Grid>
+
 
       
     </div>
