@@ -6,6 +6,7 @@ import {
   Container,
   DropdownMenu,
   Flex,
+  Skeleton,
   Text,
 } from "@radix-ui/themes";
 import { useSession } from "next-auth/react";
@@ -17,7 +18,7 @@ const NavBar = () => {
   return (
     <nav
       style={{ backgroundColor: "var(--black-a10)" }}
-      className="mb-5 py-3 px-5 border-b h-14"
+      className="mb-5 py-3 px-5 border-b"
     >
       {" "}
       <Container size={"4"}>
@@ -38,7 +39,7 @@ const NavBar = () => {
 const AuthStatus = () => {
   const { status, data: session } = useSession();
 
-  if (status === "loading") return null;
+  if (status === "loading") return <Skeleton>Login</Skeleton>;
   if (status === "unauthenticated")
     return (
       <Link className="nav-link" href="/api/auth/signin">
