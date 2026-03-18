@@ -24,3 +24,10 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+@layer  utilities{
+  .nav-link {
+    @apply text-zinc-50 hover:text-amber-500  transition-colors;
+  }
+}
