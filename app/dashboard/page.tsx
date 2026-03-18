@@ -6,9 +6,8 @@ export default async function dashboard() {
   const issueCounts = {
     open: await prisma.issue.count({ where: { status: "OPEN" } }),
     inProgress: await prisma.issue.count({ where: { status: "IN_PROGRESS" } }),
-    closed: await prisma.issue.count({ where: { status: "IN_PROGRESS" } }),
+    closed: await prisma.issue.count({ where: { status: "CLOSED" } }),
   };
-  // TO DO: In the future, we'll need some more stuff, like a chart and a way to show recent issues
   return (
     <div className="min-h-screen flex flex-col">
       <Heading as="h1" size="9" mb={"4"}>Dashboard</Heading>
