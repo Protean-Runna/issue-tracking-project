@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { IssueSchema } from "@/lib/ValidationSchemas";
 import prisma from "@/lib/db";
 import { Prisma } from "@/app/generated/prisma/client";
+import { auth } from "@/auth";
 
 export async function GET(
   request: NextRequest,
@@ -47,6 +48,10 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: { id: string } },
 ) {
+  const session = await auth();
+      if (!session){
+          return NextResponse.json({message: "You are not Authorized"},{status:401})
+      }
   const body = await request.json();
   const validation = IssueSchema.safeParse(body);
 
@@ -93,6 +98,10 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: { id: string } },
 ) {
+  const session = await auth();
+    if (!session){
+        return NextResponse.json({message: "You are not Authorized"},{status:401})
+    }
   try {
     const { id } = await params;
     const issueId = parseInt(id);

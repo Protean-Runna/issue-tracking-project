@@ -3,11 +3,15 @@ import { Issue } from "@/app/generated/prisma/client";
 import { Card, DataList, Text } from "@radix-ui/themes";
 import ReactMarkdown from "react-markdown";
 import { Edit, Delete } from "../_components/Buttons";
+import { auth } from "@/auth";
+
 interface Props {
-  params: { id: string };
+  issue: Issue,
 }
 
-const IssueData = ({issue}: {issue: Issue}) => {
+const IssueData = async ({issue}: Props) => {
+  const session = await auth();
+  
   return (
     <div>
       <Card size={"3"}>
@@ -35,10 +39,11 @@ const IssueData = ({issue}: {issue: Issue}) => {
             <DataList.Value><Date date={issue.updatedAt}/></DataList.Value>
           </DataList.Item>
         </DataList.Root>
-        <BtnGroup btnL={<Edit Id={issue.id}/>} btnR={<Delete Id={issue.id}/>} />
+
+        {session && <BtnGroup btnL={<Edit Id={issue.id}/>} btnR={<Delete Id={issue.id}/>} />}
       </Card>
       <Card mt={"4"} className="min-w-0">
-        <Text as="div" mt={"2"} mb={"2"} className="prose dark:prose-invert wrap-break-word whitespace-normal max-w-full">
+        <Text as="div" mt={"2"} mb={"2"} className="prose-invert wrap-break-word whitespace-normal max-w-full">
           <ReactMarkdown>{issue.description}</ReactMarkdown>
         </Text>
       </Card>
