@@ -1,6 +1,8 @@
 'use client'
 import { Flex, Text, Button } from "@radix-ui/themes";
 import { useRouter, useSearchParams } from "next/navigation";
+import { MdKeyboardArrowRight, MdKeyboardDoubleArrowLeft, MdKeyboardDoubleArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+
 
 interface Props  {
     itemCount: number;
@@ -26,16 +28,16 @@ export const Pagination = ({itemCount, pageSize, currentPage}: Props ) => {
         <Flex align={'center'} gap={'2'}>
             <Text size={"2"}>Page {currentPage} of  {pageCount}</Text>
             <Button color="gray" variant="soft" disabled={currentPage === 1} onClick={() => changePage(1)}>
-                ◀◀
+                <MdKeyboardDoubleArrowLeft size={'20px'}/>
             </Button>
             <Button color="gray" variant="soft" disabled={currentPage === 1} onClick={() => changePage(currentPage - 1)}>
-                ◀ Prev
+                <MdKeyboardArrowLeft size={'20px'}/><Text align={'center'}>Prev</Text>
             </Button>
             <Button color="gray" variant="soft" disabled={currentPage === pageCount} onClick={() => changePage(currentPage + 1)}>
-               Next ▶
+               <Text align={'center'}>Next</Text> <MdKeyboardArrowRight size={'20px'}/>
             </Button>
             <Button color="gray" variant="soft" disabled={currentPage === pageCount} onClick={() => changePage(pageCount)}>
-                ▶▶
+                <MdKeyboardDoubleArrowRight size={'20px'}/>
             </Button>
         </Flex>
 

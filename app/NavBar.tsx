@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation";
+import { IoIosBulb } from "react-icons/io";
 
 const NavBar = () =>{
 
@@ -17,7 +18,7 @@ const NavBar = () =>{
     return(
         <nav className="flex bg-black space-x-6 px-5 border-b h-14 items-center">
           {" "}
-          <Link href={"/"}>🏠</Link>
+          <Link href={"/"}><IoIosBulb size={'20px'} /></Link>
           <ul className="flex space-x-6">
             {links.map(link =>
                 <Link
