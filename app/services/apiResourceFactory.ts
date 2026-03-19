@@ -1,4 +1,4 @@
-import { Issue } from "../generated/prisma/client"
+import { Issue, User } from "../generated/prisma/client"
 import { apiService } from "./apiHelper"
 // This is a generic creator for locking in the name once for the methods
 //
@@ -14,3 +14,4 @@ const ResourceFactory = <T>(resourceName:string) => ({
 })
 
 export const ISSUES_AXIOS = ResourceFactory<Issue>("issues");
+export const USERS_AXIOS = ResourceFactory<User>('users');

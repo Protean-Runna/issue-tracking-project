@@ -1,3 +1,4 @@
+import { BtnGroup } from "@/app/components";
 import {
   Flex,
   Button,
@@ -53,12 +54,13 @@ export default function LoadingState() {
             </DataList.Item>
             
           </DataList.Root>
-            <Button asChild variant="outline" mr={"1"}>
-              <Skeleton>Edit</Skeleton>
-            </Button>
-            <Button asChild ml={"1"}> 
-              <Skeleton>Delete</Skeleton>
-            </Button>
+            <Flex direction={'column'} align={'start'} gap={'4'}>
+              <Button asChild><Skeleton>Assign......</Skeleton></Button>
+              <BtnGroup 
+              btnL={<Button asChild variant="outline"><Skeleton>Edit</Skeleton></Button>}
+              btnR={<Button asChild><Skeleton>Delete</Skeleton></Button>}/>
+            
+            </Flex>
         </Card>
         <Card mt={"4"}>
           <Text as="div" mt={"2"} mb={"2"}>

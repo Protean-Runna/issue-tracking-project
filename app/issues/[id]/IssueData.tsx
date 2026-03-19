@@ -1,9 +1,10 @@
 import { StatusBadge, BtnGroup, Date } from "@/app/components";
 import { Issue } from "@/app/generated/prisma/client";
-import { Card, DataList, Text } from "@radix-ui/themes";
+import { Card, DataList, Flex, Text } from "@radix-ui/themes";
 import ReactMarkdown from "react-markdown";
 import { Edit, Delete } from "../_components/Buttons";
 import { auth } from "@/auth";
+import AssignSelect from "./AssignSelect";
 
 interface Props {
   issue: Issue,
@@ -40,7 +41,12 @@ const IssueData = async ({issue}: Props) => {
           </DataList.Item>
         </DataList.Root>
 
-        {session && <BtnGroup btnL={<Edit Id={issue.id}/>} btnR={<Delete Id={issue.id}/>} />}
+        {session && 
+          <Flex justify={'start'} align={'start'} direction={'column'} gap={'3'}>
+            <AssignSelect/>
+            <BtnGroup btnL={<Edit Id={issue.id}/>} btnR={<Delete Id={issue.id}/>} />
+          </Flex> 
+        }
       </Card>
       <Card mt={"4"} className="min-w-0">
         <Text as="div" mt={"2"} mb={"2"} className="prose-invert wrap-break-word whitespace-normal max-w-full">
