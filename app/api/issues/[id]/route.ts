@@ -1,6 +1,6 @@
 // Route for getting individual Issues
 import { NextRequest, NextResponse } from "next/server";
-import { IssueSchema } from "@/lib/ValidationSchemas";
+import { IssueSchema, PatchIssueSchema } from "@/lib/ValidationSchemas";
 import prisma from "@/lib/db";
 import { Prisma } from "@/app/generated/prisma/client";
 import { auth } from "@/auth";
@@ -53,10 +53,15 @@ export async function PATCH(
           return NextResponse.json({message: "You are not Authorized"},{status:401})
       }
   const body = await request.json();
-  const validation = IssueSchema.safeParse(body);
+  const validation = PatchIssueSchema.safeParse(body);
 
   if (!validation.success) {
     return NextResponse.json(validation.error.issues, { status: 400 });
+  }
+  const {assignedUser, title, description, status} = body;
+  if (assignedUser) {
+    const user = await prisma.user.findUnique({ where: {id: assignedUser}});
+    if (!user) return NextResponse.json({error: 'Invalid User'}, {status:400})
   }
   try {
     const { id } = await params;
@@ -78,10 +83,11 @@ export async function PATCH(
     const updatedIssue = await prisma.issue.update({
       where: { id: issueId },
       data: {
-        title: body.title,
-        description: body.description,
-        status: body.status,
+        title: title,
+        description: description,
+        status: status,
         updatedAt: new Date(),
+        assignedToUserId: assignedUser
       },
     });
     return NextResponse.json(updatedIssue);
