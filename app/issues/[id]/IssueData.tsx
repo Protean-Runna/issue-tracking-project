@@ -43,7 +43,7 @@ const IssueData = async ({issue}: Props) => {
 
         {session && 
           <Flex justify={'start'} align={'start'} direction={'column'} gap={'3'}>
-            <AssignSelect/>
+            <AssignSelect issue={issue}/>
             <BtnGroup btnL={<Edit Id={issue.id}/>} btnR={<Delete Id={issue.id}/>} />
           </Flex> 
         }

@@ -1,9 +1,10 @@
 'use client'
-import { USERS_AXIOS } from "@/app/services/apiResourceFactory";
+import { Issue } from "@/app/generated/prisma/client";
+import { ISSUES_AXIOS, USERS_AXIOS } from "@/app/services/apiResourceFactory";
 import { Select, Skeleton, Button } from "@radix-ui/themes"
 import { useQuery } from "@tanstack/react-query";
 
-const AssignSelect = () => {
+const AssignSelect = ({issue}: {issue: Issue}) => {
     const {data: users, error, isLoading} = useQuery({
         queryKey: ['users'],
         queryFn: () => USERS_AXIOS.getAll().then(res => res.data),
@@ -15,13 +16,16 @@ const AssignSelect = () => {
 
     if (error) return null;
 
-
     return( 
-        <Select.Root>
+        <Select.Root defaultValue={issue.assignedToUserId || ""} onValueChange={(userId) =>{
+            const issueId = issue.id.toString();
+            ISSUES_AXIOS.update(issueId, {assignedToUserId: userId || null});
+        }}>
             <Select.Trigger placeholder="Assign..."/>
             <Select.Content>
                 <Select.Group>
                     <Select.Label>Suggestions</Select.Label>
+                    <Select.Item value={null as unknown as string}>Unassigned</Select.Item>
                     {users?.map(user => (
                     <Select.Item key={user.id} value={user.id}>{user.name}</Select.Item>
                     )
