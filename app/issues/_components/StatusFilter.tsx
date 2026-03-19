@@ -15,7 +15,7 @@ const StatusFilter = () => {
             <Select.Root onValueChange={(status) => {
                 const safe = status ?? 'all';
                 const query = `?status=${encodeURIComponent(safe)}`;
-                router.push('/issues' + query);
+                router.push('/issues/list' + query);
             }}>
                 <Select.Trigger mb={"1"} placeholder="Sort by status..."/>
                 <Select.Content>

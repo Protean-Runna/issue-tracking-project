@@ -76,7 +76,7 @@ const AuthStatus = () => {
 const NavLinks = () => {
   const links = [
     { label: "About", href: "/about" },
-    { label: "Issues", href: "/issues" },
+    { label: "Issues", href: "/issues/list" },
     { label: "Dashboard", href: "/dashboard" },
   ];
   const currentPath = usePathname();

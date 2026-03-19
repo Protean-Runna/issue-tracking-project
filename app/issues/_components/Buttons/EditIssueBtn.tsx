@@ -10,7 +10,7 @@ export default function EditBtn({Id}: Props) {
 
     return(
             <Button asChild variant="outline">
-                <Link href={`/issues/${Id}/edit`} underline="none">Edit</Link>
+                <Link href={`/issues/edit/${Id}`} underline="none">Edit</Link>
             </Button> 
     )
     

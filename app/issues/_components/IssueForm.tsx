@@ -33,7 +33,7 @@ const IssueForm = ({issue} : {issue?: Issue}) => {
               await ISSUES_AXIOS.create(data);
             }
             
-            router.push('/issues'); 
+            router.push('/issues/list'); 
             router.refresh();       
           } catch (error) {
             setIsSubmitting(false);

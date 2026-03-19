@@ -1,7 +1,7 @@
 import { Table, Button, } from "@radix-ui/themes";
-import { StatusBadge, Link, Date } from "../components";
-import { Issue } from "../generated/prisma/client";
-import { Edit } from "./_components/Buttons";
+import { StatusBadge, Link, Date } from "@/app/components";
+import { Issue } from "@/app/generated/prisma/client";
+import { Edit } from "../_components/Buttons";
 const IssuesTable = ({ issues }: { issues: Issue[] }) => {
   return (
     <div>

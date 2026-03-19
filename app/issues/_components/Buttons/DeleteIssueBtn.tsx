@@ -19,7 +19,7 @@ export default function DeleteBtn({Id}: {Id: number}) {
           try {  
             setProcess(true);
             await ISSUES_AXIOS.delete(issueId);               
-            router.push('/issues'); 
+            router.push('/issues/list'); 
             router.refresh();       
           } catch (error) {
             setProcess(false);

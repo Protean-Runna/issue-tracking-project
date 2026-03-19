@@ -1,10 +1,10 @@
 import { Heading, Flex } from "@radix-ui/themes";
 import IssuesTable from "./IssuesTable";
-import StatusFilter from "./_components/StatusFilter";
-import { Status } from "../generated/prisma/enums";
+import StatusFilter from "../_components/StatusFilter";
+import { Status } from "@/app/generated/prisma/enums";
 import prisma from "@/lib/db";
 import { Metadata } from "next";
-import { Pagination } from "../components/Pagination";
+import { Pagination } from "@/app/components/Pagination";
 interface Props {
   searchParams: Promise<{status: Status, page: string}>
 }
