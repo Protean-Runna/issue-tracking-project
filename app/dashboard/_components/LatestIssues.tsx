@@ -1,11 +1,14 @@
 import { StatusBadge } from "@/app/components";
 import prisma from "@/lib/db";
-import { Flex, Heading, Table, Card } from "@radix-ui/themes";
+import { Flex, Heading, Table, Card, Avatar } from "@radix-ui/themes";
 import Link from "next/link";
 const LatestIssues = async () => {
     const issues = await prisma.issue.findMany({
         orderBy: {createdAt:'desc'},
-        take:5
+        take:5,
+        include:{
+            assignedToUser:true
+        }
     })
 
     return (
@@ -16,11 +19,15 @@ const LatestIssues = async () => {
                     {issues.map( issue => (
                         <Table.Row key={issue.id}>
                             <Table.Cell>
-                                <Flex direction={"column"} align={"start"} gap={"2"}>
-                                    <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
-                                    <StatusBadge dbStatus={issue.status} />
+                                <Flex justify={'between'}>
+                                    <Flex direction={"column"} align={"start"} gap={"2"}>
+                                        <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+                                        <StatusBadge dbStatus={issue.status} />
+                                    </Flex>
+                                    {issue.assignedToUser && (
+                                        <Avatar radius="full" src={issue.assignedToUser.image!} fallback="?" referrerPolicy="no-referrer" />
+                                    )}
                                 </Flex>
-                                
                             </Table.Cell>
                         </Table.Row>
                     ))}
