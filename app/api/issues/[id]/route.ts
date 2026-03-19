@@ -49,18 +49,18 @@ export async function PATCH(
   { params }: { params: { id: string } },
 ) {
   const session = await auth();
-      if (!session){
-          return NextResponse.json({message: "You are not Authorized"},{status:401})
-      }
+  if (!session){
+      return NextResponse.json({message: "You are not Authorized"},{status:401})
+  }
   const body = await request.json();
   const validation = PatchIssueSchema.safeParse(body);
 
   if (!validation.success) {
     return NextResponse.json(validation.error.issues, { status: 400 });
   }
-  const {assignedUser, title, description, status} = body;
-  if (assignedUser) {
-    const user = await prisma.user.findUnique({ where: {id: assignedUser}});
+  const {assignedToUserId, title, description, status} = body;
+  if (assignedToUserId) {
+    const user = await prisma.user.findUnique({ where: {id: assignedToUserId}});
     if (!user) return NextResponse.json({error: 'Invalid User'}, {status:400})
   }
   try {
@@ -87,7 +87,7 @@ export async function PATCH(
         description: description,
         status: status,
         updatedAt: new Date(),
-        assignedToUserId: assignedUser
+        assignedToUserId: assignedToUserId
       },
     });
     return NextResponse.json(updatedIssue);
