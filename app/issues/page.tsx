@@ -1,6 +1,5 @@
 import { Heading, Flex } from "@radix-ui/themes";
 import IssuesTable from "./IssuesTable";
-import delay from "delay";
 import StatusFilter from "./_components/StatusFilter";
 import { Status } from "../generated/prisma/enums";
 import prisma from "@/lib/db";
@@ -16,7 +15,7 @@ interface Props {
   const statuses = Object.values(Status);
   const status = statuses.includes(params.status) ? params.status : undefined;
   const where = {status};
-  console.log(status);
+  //console.log(status);
   const page = parseInt((await searchParams).page) || 1;
   const pageSize = 10
   const issues = await prisma.issue.findMany({
@@ -34,7 +33,6 @@ interface Props {
         take: pageSize
     });
   
-  await delay(1000);
 
   const issueCount = await prisma.issue.count({where});
 
