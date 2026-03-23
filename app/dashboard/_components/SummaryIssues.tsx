@@ -25,7 +25,7 @@ const SummaryIssues = ({open, inProgress, closed} :Props) => {
         <Flex gap={"2"} mb="2">
            { containers.map(container => (
             <StatCard key={container.label} Title={container.label}>
-                <Link href={`/issues?status=${container.status}`} size={"7"}>{container.value}</Link>
+                <Link href={`/issues/list?status=${container.status}`} size={"7"}>{container.value}</Link>
             </StatCard>
            ))}
         </Flex>
