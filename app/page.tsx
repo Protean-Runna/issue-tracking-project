@@ -7,7 +7,7 @@ export default function Home() {
       <Flex justify="center" align="center" gap="5" direction="column">
         <Heading as="h1" size="9">Generic Issue Tracker</Heading>
         <Text size="7">
-          Track and fix issues <Text weight="bold" color="orange">the easy way</Text>
+          Track and fix issues <Text weight="bold" style={{color:'var(--accent-10)'}}>the easy way</Text>
         </Text>
         <Flex align={'center'} gap="3" >
           <Button size="4" asChild><Link href="/issues">See Issues</Link></Button>

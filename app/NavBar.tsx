@@ -17,7 +17,7 @@ import { IoIosBulb } from "react-icons/io";
 const NavBar = () => {
   return (
     <nav
-      style={{ backgroundColor: "var(--black-a10)" }}
+      style={{ backgroundColor: "var(--gray-2)" }}
       className="mb-5 py-3 px-5 border-b"
     >
       {" "}
@@ -82,6 +82,7 @@ const NavLinks = () => {
   const currentPath = usePathname();
   console.log(currentPath);
 
+
   return (
     <ul className="flex space-x-6">
       {links.map((link) => (
@@ -89,7 +90,7 @@ const NavLinks = () => {
           <Link
             className={`
                nav-link
-                ${link.href === currentPath && "text-amber-300!"}`}
+                ${link.href === currentPath && "text-orange-500!"}`}
             href={link.href}
           >
             {link.label}

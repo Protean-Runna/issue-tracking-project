@@ -28,6 +28,6 @@ body {
 
 @layer  utilities{
   .nav-link {
-    @apply text-zinc-50 hover:text-amber-500  transition-colors;
+    @apply text-zinc-400 hover:text-orange-400  transition-colors;
   }
 }

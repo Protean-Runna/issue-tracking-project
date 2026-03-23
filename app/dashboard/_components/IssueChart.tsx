@@ -17,8 +17,8 @@ const IssueChart = ({ open, inProgress, closed,  unAssigned,  assigned }: Props)
     { name: "Closed", fill: "var(--green-10)", value: closed },
   ];
   const assignedData = [
-    {name: 'Unassigned', fill:'white', value: unAssigned},
-    {name: 'Assigned', fill:'var(--tomato-10)', value: assigned}  
+    {name: 'Unassigned', fill:'var(--gray-12)', value: unAssigned},
+    {name: 'Assigned', fill:'var(--accent-10)', value: assigned}  
   ]
 
   return (

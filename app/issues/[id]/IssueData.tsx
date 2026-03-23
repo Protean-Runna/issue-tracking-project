@@ -19,24 +19,24 @@ const IssueData = async ({issue}: Props) => {
         <DataList.Root mb={"4"} size={"3"}>
           {/** Title*/}
           <DataList.Item>
-            <DataList.Label color="tomato">Issue:</DataList.Label>
+            <DataList.Label style={{color:'var(--accent-10'}}>Issue:</DataList.Label>
             <DataList.Value className="min-w-0 wrap-break-word whitespace-normal max-w-full" >{issue.title}</DataList.Value>
           </DataList.Item>
           {/** Status */}
           <DataList.Item>
-            <DataList.Label color="tomato">Status:</DataList.Label>
+            <DataList.Label style={{color:'var(--accent-10'}}>Status:</DataList.Label>
             <DataList.Value>
               <StatusBadge dbStatus={issue.status || "grey"} />
             </DataList.Value>
           </DataList.Item>
           {/** Created */}
           <DataList.Item>
-            <DataList.Label color="tomato">Created:</DataList.Label>
+            <DataList.Label style={{color:'var(--accent-10'}}>Created:</DataList.Label>
             <DataList.Value><Date date={issue.createdAt}/></DataList.Value>
           </DataList.Item>
           {/** Updated */}
           <DataList.Item>
-            <DataList.Label color="tomato">Updated:</DataList.Label>
+            <DataList.Label style={{color:'var(--accent-10'}}>Updated:</DataList.Label>
             <DataList.Value><Date date={issue.updatedAt}/></DataList.Value>
           </DataList.Item>
         </DataList.Root>
