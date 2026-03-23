@@ -8,6 +8,10 @@ export default async function dashboard() {
     inProgress: await prisma.issue.count({ where: { status: "IN_PROGRESS" } }),
     closed: await prisma.issue.count({ where: { status: "CLOSED" } }),
   };
+  const assignedCounts ={
+    unAssigned: await prisma.issue.count({where: {assignedToUserId:null}}),
+    assigned: await prisma.issue.count({where: {assignedToUserId:{not:null}}}),
+  }
   return (
     <div className="min-h-screen flex flex-col">
       <Heading as="h1" size="9" mb={"4"}>Dashboard</Heading>
@@ -21,6 +25,8 @@ export default async function dashboard() {
             open={issueCounts.open} 
             inProgress={issueCounts.inProgress} 
             closed={issueCounts.closed}
+            unAssigned={assignedCounts.unAssigned}
+            assigned={assignedCounts.assigned}
             />
         </Flex>
         <LatestIssues/>
