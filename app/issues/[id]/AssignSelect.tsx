@@ -3,7 +3,7 @@ import { Issue } from "@/app/generated/prisma/client";
 import { ISSUES_AXIOS, USERS_AXIOS } from "@/app/services/apiResourceFactory";
 import { Select, Skeleton, Button } from "@radix-ui/themes"
 import { useQuery } from "@tanstack/react-query";
-
+import { Toaster, toast } from 'sonner';
 const AssignSelect = ({issue}: {issue: Issue}) => {
     const {data: users, error, isLoading} = useQuery({
         queryKey: ['users'],
@@ -17,9 +17,13 @@ const AssignSelect = ({issue}: {issue: Issue}) => {
     if (error) return null;
 
     return( 
+        <>
         <Select.Root defaultValue={issue.assignedToUserId || ""} onValueChange={(userId) =>{
             const issueId = issue.id.toString();
-            ISSUES_AXIOS.update(issueId, {assignedToUserId: userId || null});
+            ISSUES_AXIOS.update(issueId, {assignedToUserId: userId || null})
+            .catch(() => {
+                toast.error('Could not save changes');
+            });
         }}>
             <Select.Trigger placeholder="Assign..."/>
             <Select.Content>
@@ -35,6 +39,9 @@ const AssignSelect = ({issue}: {issue: Issue}) => {
                 </Select.Group>
             </Select.Content>
         </Select.Root>
+        <Toaster position="top-center" richColors/>
+        
+        </>
     )
     
 }
