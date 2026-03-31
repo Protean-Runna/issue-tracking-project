@@ -1,17 +1,38 @@
-import { Heading, Flex, Grid, } from "@radix-ui/themes";
+import { Heading, Flex, Grid, Text } from "@radix-ui/themes";
 import prisma from "@/lib/db";
 import { SummaryIssues, IssueChart, LatestIssues } from "./_components";
 import { Metadata } from "next";
+
 export default async function dashboard() {
+
+
+  const statusGroups = await prisma.issue.groupBy({
+    by: ['status'],
+    _count:{
+      status:true,
+    },
+  });
+
+  const aggregations = await prisma.issue.aggregate({
+    _count:{
+      _all:true,
+      assignedToUserId: true,
+    }
+  })
+
+
+
   const issueCounts = {
-    open: await prisma.issue.count({ where: { status: "OPEN" } }),
-    inProgress: await prisma.issue.count({ where: { status: "IN_PROGRESS" } }),
-    closed: await prisma.issue.count({ where: { status: "CLOSED" } }),
+    open: statusGroups.find(g => g.status === 'OPEN')?._count.status || 0,
+    inProgress: statusGroups.find(g => g.status === 'IN_PROGRESS')?._count.status || 0,
+    closed: statusGroups.find(g => g.status === 'CLOSED')?._count.status || 0,
+    total: aggregations._count._all,
   };
   const assignedCounts ={
-    unAssigned: await prisma.issue.count({where: {assignedToUserId:null}}),
-    assigned: await prisma.issue.count({where: {assignedToUserId:{not:null}}}),
-  }
+    unAssigned: aggregations._count._all - aggregations._count.assignedToUserId,
+    assigned: aggregations._count.assignedToUserId, 
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Heading as="h1" size="9" mb={"4"}>Dashboard</Heading>
@@ -27,6 +48,7 @@ export default async function dashboard() {
             closed={issueCounts.closed}
             unAssigned={assignedCounts.unAssigned}
             assigned={assignedCounts.assigned}
+            total={issueCounts.total}
             />
         </Flex>
         <LatestIssues/>
