@@ -16,7 +16,6 @@ const EditPage =  async ({params}: Props) => {
     if (!issue) {
       return notFound();
     }
-    await delay(1000);
     return (
         <div>
             <IssueFormPageView issue={issue}/>

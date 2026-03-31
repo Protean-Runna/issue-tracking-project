@@ -25,7 +25,6 @@ const issueDetailsPage = async ({ params }: Props) => {
 
   const issue = await fetchIssue(issueId);
   if (!issue) notFound();
-    await delay(1000);
     
     return (
       <Flex justify={"center"} align={"center"} className="w-full">
