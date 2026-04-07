@@ -52,10 +52,15 @@ export default function LoadingState() {
                 </Skeleton>
               </DataList.Value>
             </DataList.Item>
+            <DataList.Item>
+              <DataList.Label>Assignee:</DataList.Label>
+              <DataList.Value>
+                  <Button asChild><Skeleton>Assigned</Skeleton></Button>
+              </DataList.Value>
+            </DataList.Item>
             
           </DataList.Root>
-            <Flex direction={'column'} align={'start'} gap={'4'}>
-              <Button asChild><Skeleton>Assign......</Skeleton></Button>
+            <Flex direction={'column'} align={'start'} gap={'3'}>
               <BtnGroup 
               btnL={<Button asChild variant="outline"><Skeleton>Edit</Skeleton></Button>}
               btnR={<Button asChild><Skeleton>Delete</Skeleton></Button>}/>

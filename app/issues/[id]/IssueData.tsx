@@ -1,13 +1,16 @@
 import { StatusBadge, BtnGroup, Date } from "@/app/components";
-import { Issue } from "@/app/generated/prisma/client";
+import { Issue, Prisma } from "@/app/generated/prisma/client";
 import { Card, DataList, Flex, Text } from "@radix-ui/themes";
 import ReactMarkdown from "react-markdown";
 import { Edit, Delete } from "../_components/Buttons";
 import { auth } from "@/auth";
 import AssignSelect from "./AssignSelect";
 
+type IssueWithUser = Prisma.IssueGetPayload<{
+  include: { assignedToUser: true }
+}>;
 interface Props {
-  issue: Issue,
+  issue: IssueWithUser,
 }
 
 const IssueData = async ({issue}: Props) => {
@@ -39,13 +42,23 @@ const IssueData = async ({issue}: Props) => {
             <DataList.Label style={{color:'var(--accent-10'}}>Updated:</DataList.Label>
             <DataList.Value><Date date={issue.updatedAt}/></DataList.Value>
           </DataList.Item>
+          <DataList.Item>
+            <DataList.Label style={{color:'var(--accent-10'}}>Assignee:</DataList.Label>
+            {session &&  
+              <Flex justify={'start'} align={'start'}>
+                <AssignSelect issue={issue}/>
+              </Flex> || 
+              <DataList.Value className="min-w-0 wrap-break-word whitespace-normal max-w-full" >
+              {issue.assignedToUserId ? issue.assignedToUser?.name : "Unassigned"}
+              </DataList.Value>
+            }
+          </DataList.Item>
         </DataList.Root>
 
         {session && 
           <Flex justify={'start'} align={'start'} direction={'column'} gap={'3'}>
-            <AssignSelect issue={issue}/>
             <BtnGroup btnL={<Edit Id={issue.id}/>} btnR={<Delete Id={issue.id}/>} />
-          </Flex> 
+          </Flex>
         }
       </Card>
       <Card mt={"4"} className="min-w-0">
