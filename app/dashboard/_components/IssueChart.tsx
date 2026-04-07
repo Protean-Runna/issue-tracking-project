@@ -2,6 +2,7 @@
 
 import { Pie, PieChart, Tooltip, ResponsiveContainer, Legend, Label } from "recharts";
 import { Card } from "@radix-ui/themes";
+import CustomLabel from "./CustomLabel";
 interface Props {
   open: number;
   inProgress: number;
@@ -37,7 +38,7 @@ const IssueChart = ({ open, inProgress, closed,  unAssigned,  assigned, total }:
             endAngle={360}
             stroke="var(--gray-2)"
           />
-          <Label position={'center'} fill="var(--gray-12)" value={`${totalData.value} Issues`} zIndex={2000} />
+          <Label width={30} content={<CustomLabel title={'Issues'} value={totalData.value}/>} />
           <Pie
             data={assignedData}
             dataKey="value"
