@@ -3,6 +3,7 @@
 import {
   Avatar,
   Box,
+  Button,
   Container,
   DropdownMenu,
   Flex,
@@ -42,9 +43,11 @@ const AuthStatus = () => {
   if (status === "loading") return <Skeleton>Login</Skeleton>;
   if (status === "unauthenticated")
     return (
-      <Link className="nav-link" href="/api/auth/signin">
-        Login
-      </Link>
+      <Button variant='outline' asChild>
+        <Link className="nav-link" href="/api/auth/signin">
+          Login
+        </Link>
+      </Button>
     );
 
   return (
