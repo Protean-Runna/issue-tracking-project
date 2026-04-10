@@ -7,30 +7,25 @@ export default async function dashboard() {
 
 
   const statusGroups = await prisma.issue.groupBy({
-    by: ['status'],
-    _count:{
-      status:true,
-    },
+  by: ['status'],
+  _count: {
+    status: true,
+    assignedToUserId: true,
+  },
   });
 
-  const aggregations = await prisma.issue.aggregate({
-    _count:{
-      _all:true,
-      assignedToUserId: true,
-    }
-  })
 
-
-
+  const total = statusGroups.reduce((sum, g) => sum + g._count.status, 0);
+  const assigned = statusGroups.reduce((sum, g) => sum + g._count.assignedToUserId, 0);
   const issueCounts = {
     open: statusGroups.find(g => g.status === 'OPEN')?._count.status || 0,
     inProgress: statusGroups.find(g => g.status === 'IN_PROGRESS')?._count.status || 0,
     closed: statusGroups.find(g => g.status === 'CLOSED')?._count.status || 0,
-    total: aggregations._count._all,
+    total,
   };
   const assignedCounts ={
-    unAssigned: aggregations._count._all - aggregations._count.assignedToUserId,
-    assigned: aggregations._count.assignedToUserId, 
+    unAssigned: total - assigned,
+    assigned
   };
 
   return (
