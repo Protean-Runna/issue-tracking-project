@@ -2,7 +2,8 @@ import { apiService } from "./apiHelper";
 import { Issue } from "../generated/prisma/client";
 
 
-
+// This is the precurser to the Axios resource factory.
+// Though not used anymore, it's archived as the stepping stone between having the apiHelper and the resource factory.
 export const issuesAxios = {
     getAll: () => apiService.getAll<Issue[]>("issues"),
     getSingle: (id: string) => apiService.getById<Issue>("issues", id),
