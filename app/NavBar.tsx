@@ -40,7 +40,7 @@ const NavBar = () => {
 const AuthStatus = () => {
   const { status, data: session } = useSession();
 
-  if (status === "loading") return <Skeleton>Login</Skeleton>;
+  if (status === "loading") return <Skeleton><Avatar radius="full" size={"2"} fallback="?"></Avatar></Skeleton>;
   if (status === "unauthenticated")
     return (
       <Button variant='outline' asChild>
