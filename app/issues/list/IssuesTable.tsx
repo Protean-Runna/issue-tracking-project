@@ -40,7 +40,7 @@ const IssuesTable = async ({ issues, searchParams }:Props) => {
             <Table.ColumnHeaderCell>
               <Button asChild>
                 <Link href="/issues/new" underline="none" size={"2"}>
-                  New Issue
+                  Create
                 </Link>
               </Button>
             </Table.ColumnHeaderCell>
