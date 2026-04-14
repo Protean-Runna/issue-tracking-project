@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> Disclaimer: This is just a psuedo learning/demonstration project from learning Next.js. Not a legit issue tracker.
+
 ## Issue Tracker
 A simple issue tracker made with inspiration from Mosh Hamedani's Next.js tutorial, adapted to a modern tech stack. 
 
@@ -46,7 +49,7 @@ If you want to run this project, follow these steps:
   2. Install dependencies with `npm install`
   3. Set up your local environment
    ```
-  
+   BASE_URL=localhost:3000
    DATABASE_URL=your_connection_string
    DIRECT_URL=your_direct_database_url
 
