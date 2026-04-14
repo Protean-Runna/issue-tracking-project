@@ -4,7 +4,7 @@ import { Issue, Status } from "@/app/generated/prisma/client";
 import { Edit } from "../_components/Buttons";
 import NextLink from "next/link";
 import { auth } from "@/auth";
-import { BsArrowDown, BsArrowUp } from "react-icons/bs";
+import { BsArrowDown, BsArrowUp, BsPlus } from "react-icons/bs";
 
 interface Props {
   searchParams:  IssueQuery,
@@ -40,7 +40,7 @@ const IssuesTable = async ({ issues, searchParams }:Props) => {
             <Table.ColumnHeaderCell>
               <Button asChild>
                 <Link href="/issues/new" underline="none" size={"2"}>
-                  Create
+                  Create<BsPlus fontSize={20}/>
                 </Link>
               </Button>
             </Table.ColumnHeaderCell>
