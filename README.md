@@ -4,6 +4,12 @@
 ## Issue Tracker
 A simple issue tracker made with inspiration from Mosh Hamedani's Next.js tutorial, adapted to a modern tech stack. 
 
+## 📺 Demo Video
+
+
+https://github.com/user-attachments/assets/ed5885d7-4396-4e3d-a751-2f308a0808c1
+
+
 
 ## Technologies
 
