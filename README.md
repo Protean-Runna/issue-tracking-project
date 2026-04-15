@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> Disclaimer: This is just a psuedo learning/demonstration project from learning Next.js. Not a legit issue tracker.
+> Disclaimer: This project was built for educational purposes and as a portfolio piece. It is not a production-grade issue tracker and should not be used to manage real-world software tasks.
 
 ## Issue Tracker
 A simple issue tracker made with inspiration from Mosh Hamedani's Next.js tutorial, adapted to a modern tech stack. 
