@@ -17,7 +17,7 @@ const LatestIssues = async () => {
             <Table.Root >
                 <Table.Body>
                     {issues.map( issue => (
-                        <Table.Row key={issue.id}>
+                        <Table.Row key={issue.id} className="hover:backdrop-brightness-125">
                             <Table.Cell>
                                 <Flex justify={'between'}>
                                     <Flex direction={"column"} align={"start"} gap={"2"}>

@@ -48,7 +48,7 @@ const IssuesTable = async ({ issues, searchParams }:Props) => {
         </Table.Header>
         <Table.Body>
           {issues.map((issue) => (
-            <Table.Row key={issue.id}>
+            <Table.Row key={issue.id} className="hover:backdrop-brightness-50">
               <Table.RowHeaderCell>
                 <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
                 <div className="block md:hidden">
