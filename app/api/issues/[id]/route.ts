@@ -9,7 +9,10 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
-  // UPDATE: It now works with the IssueData Component, huzzah!
+  const session = await auth();
+        if (!session){
+            return NextResponse.json({message: "You are not Authorized"},{status:401})
+    }
   try {
     const { id } = await params;
     const issueId = parseInt(id);

@@ -1,10 +1,16 @@
 import {NextResponse } from "next/server";
 
 import prisma from "@/lib/db";
+import { auth } from "@/auth";
 
 
 
 export async function GET() {
+
+     const session = await auth();
+            if (!session){
+                return NextResponse.json({message: "You are not Authorized"},{status:401})
+    }
 
     try {
     const issues = await prisma.issue.findMany({
