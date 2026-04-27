@@ -1,11 +1,19 @@
-import { Heading, Flex, Grid, Text } from "@radix-ui/themes";
+import { Heading, Flex, Grid, Card } from "@radix-ui/themes";
 import prisma from "@/lib/db";
 import { SummaryIssues, IssueChart, LatestIssues } from "./_components";
 import { Metadata } from "next";
+import { auth } from "@/auth";
+import AssignedIssues, { AssignedQuery } from "./_components/AssignedIssues";
 
-export default async function dashboard() {
+interface Props {
+    searchParams: AssignedQuery,
+}
 
 
+export default async function dashboard({searchParams}: Props) {
+  
+  const session = await auth();
+  const params = await searchParams;
   const statusGroups = await prisma.issue.groupBy({
   by: ['status'],
   _count: {
@@ -31,7 +39,14 @@ export default async function dashboard() {
   return (
     <div className="min-h-screen flex flex-col">
       <Heading as="h1" size="9" mb={"4"}>Dashboard</Heading>
-      <Grid gap={"3"} columns={{initial:"1", md:"2"}}>
+      {session ? <AssignedIssues searchParams={params}/> : 
+      <Card>
+        <Heading align={'center'} size={'4'}>
+          Log in to see your assigned issues
+        </Heading>
+      </Card> 
+      }
+      <Grid gap={"3"} className="mt-3" columns={{initial:"1", md:"2"}}>
         <Flex direction={"column"}>
             <SummaryIssues 
             open={issueCounts.open} 
@@ -48,6 +63,8 @@ export default async function dashboard() {
         </Flex>
         <LatestIssues/>
       </Grid>
+      
+      
 
 
       

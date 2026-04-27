@@ -6,6 +6,13 @@ export default function LoadingState() {
     return (
     <div className="min-h-screen flex flex-col">
       <Heading as="h1" size="9" mb={"4"}>Dashboard</Heading>
+      <Card mb={'3'}>
+        <Skeleton >
+            <Text align={'center'} size={'4'}>
+            Your Assigned Issues
+            </Text>
+        </Skeleton>
+      </Card> 
       <Grid gap={"3"} columns={{initial:"1", md:"2"}}>
         <Flex direction={"column"}>
             <SummaryIssues 
