@@ -7,7 +7,11 @@ A simple issue tracker made with inspiration from Mosh Hamedani's Next.js tutori
 ## 📺 Demo Video
 
 
-https://github.com/user-attachments/assets/ed5885d7-4396-4e3d-a751-2f308a0808c1
+
+
+https://github.com/user-attachments/assets/f8fb6938-96a0-4149-8f05-a8b2dd6b8f02
+
+
 
 
 
